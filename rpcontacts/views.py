@@ -5,13 +5,16 @@
 from PyQt5.Qt import (
     QMainWindow,
     QWidget,
-    QHBoxLayout
+    QHBoxLayout,
+    QAbstractItemView,
+    QPushButton,
+    QTableView,
+    QVBoxLayout
 )
 
 class Window(QMainWindow):
     """Main Window"""
     def __init__(self, parent=None):
-
         super().__init__(parent)
         self.setWindowTitle("RP Contacts")
         self.resize(550, 250)
@@ -19,3 +22,23 @@ class Window(QMainWindow):
         self.setCentralWidget(self.centralWidget)
         self.layout = QHBoxLayout()
         self.centralWidget.setLayout(self.layout)
+        self.setupUI()
+
+    def setupUI(self):
+        """Setup the main window's GUI"""
+        # Create the table view widget
+        self.table = QTableView()
+        self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.table.resizeColumnsToContents()
+        # Create Buttons
+        self.addButton = QPushButton("Add...")
+        self.deleteButton = QPushButton("Delete")
+        self.clearAllButton = QPushButton("Clear All")
+        # Lay out the GUI
+        layout = QVBoxLayout()
+        layout.addWidget(self.addButton)
+        layout.addWidget(self.deleteButton)
+        layout.addStretch()
+        layout.addWidget(self.clearAllButton)
+        self.layout.addWidget(self.table)
+        self.layout.addLayout(layout)
