@@ -21,4 +21,15 @@ class ContactsModel:
             contactsTableModel.setHeaderData(column, Qt.Horizontal, header)
         return contactsTableModel
 
+    def addContact(self, data):
+        """Adds a contact to the database"""
+        rows = self.model.rowCount()
+        self.model.insertRows(rows, 1)
+        for column, field in enumerate(data):
+            self.model.setData(self.model.index(rows, column + 1), field)
+        self.model.submitAll()
+        self.model.select()
+
+
+
 

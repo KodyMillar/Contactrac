@@ -42,7 +42,7 @@ class Window(QMainWindow):
         self.table.resizeColumnsToContents()
         # Create Buttons
         self.addButton = QPushButton("Add...")
-        self.addButton.clicked().connect(self.openAddDialog)
+        self.addButton.clicked.connect(self.openAddDialog)
         self.deleteButton = QPushButton("Delete")
         self.clearAllButton = QPushButton("Clear All")
         # Lay out the GUI
@@ -70,6 +70,7 @@ class AddDialog(QDialog):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
         self.data = None
+        self.setupUI()
 
     def setupUI(self):
         """Setup the contact dialog's UI"""
@@ -85,14 +86,15 @@ class AddDialog(QDialog):
         addContactLayout.addRow("Name", self.nameField)
         addContactLayout.addRow("Job", self.jobField)
         addContactLayout.addRow("Email", self.emailField)
+        self.layout.addLayout(addContactLayout)
         # Create the buttons for the dialog
         self.buttonsBox = QDialogButtonBox()
         self.buttonsBox.setOrientation(Qt.Horizontal)
         self.buttonsBox.setStandardButtons(
-            QDialogButtonBox.Ok, QDialogButtonBox.Cancel
+            QDialogButtonBox.Ok | QDialogButtonBox.Cancel
         )
-        self.buttonsBox.accepted(self.accept)
-        self.buttonsBox.rejected(self.reject)
+        self.buttonsBox.accepted.connect(self.accept)
+        self.buttonsBox.rejected.connect(self.reject)
         self.layout.addWidget(self.buttonsBox)
 
     def accept(self):
@@ -111,5 +113,7 @@ class AddDialog(QDialog):
 
             self.data.append(field.text())
         super().accept()
+
+
 
 
