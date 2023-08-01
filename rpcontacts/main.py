@@ -6,8 +6,8 @@ import sys
 
 from PyQt5.Qt import QApplication
 
-from database import createConnection
-from views import Window
+from .database import createConnection
+from .views import Window
 
 def main():
     """RP Contacts main function"""
