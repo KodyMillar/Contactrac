@@ -16,7 +16,7 @@ class ContactsModel:
         contactsTableModel.setTable("contacts")
         contactsTableModel.setEditStrategy(QSqlTableModel.OnFieldChange)
         contactsTableModel.select()
-        headerNames = ["ID", "Name", "Job", "Email"]
+        headerNames = ["ID", "Name", "Job", "Email", "Company", "Country"]
         for column, header in enumerate(headerNames):
             contactsTableModel.setHeaderData(column, Qt.Horizontal, header)
         return contactsTableModel
@@ -36,3 +36,18 @@ class ContactsModel:
         self.model.submitAll()
         self.model.select()
 
+
+class CompanyModel:
+
+    def __init__(self):
+        self.model = self._createModel()
+    
+    def _createModel(self):
+        companyTableModel = QSqlTableModel()
+        companyTableModel.setTable("country")
+        companyTableModel.setEditStrategy(QSqlTableModel.onFieldChange)
+        companyTableModel.select()
+        companyHeaders = ["ID", "Company", "Industry"]
+        for column, header in enumerate(companyHeaders):
+            companyTableModel.setHeaderData(column, Qt.Horizontal, header)
+        return companyTableModel

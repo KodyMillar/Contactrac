@@ -18,7 +18,7 @@ from PyQt5.Qt import (
     QMessageBox
 )
 
-from .model import ContactsModel
+from .model import ContactsModel, CompanyModel
 
 class Window(QMainWindow):
     """Main Window"""
@@ -95,11 +95,14 @@ class AddDialog(QDialog):
         self.jobField.setObjectName("Job")
         self.emailField = QLineEdit()
         self.emailField.setObjectName("Email")
+        self.companyField = QLineEdit()
+        self.companyField.setObjectName("Company")
         # Add the form layout to hold all the line edits
         addContactLayout = QFormLayout()
         addContactLayout.addRow("Name", self.nameField)
         addContactLayout.addRow("Job", self.jobField)
         addContactLayout.addRow("Email", self.emailField)
+        addContactLayout.addRow("Company", self.companyField)
         self.layout.addLayout(addContactLayout)
         # Create the buttons for the dialog
         self.buttonsBox = QDialogButtonBox()
@@ -114,7 +117,7 @@ class AddDialog(QDialog):
     def accept(self):
         """Validate and accept the data from the user"""
         self.data = []
-        for field in (self.nameField, self.jobField, self.emailField):
+        for field in (self.nameField, self.jobField, self.emailField, self.companyField):
             if not field.text():
                 QMessageBox.critical(
                     self,
